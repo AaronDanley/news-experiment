@@ -1,4 +1,4 @@
-# News Aggregator v5 - React + Node.js
+# News Aggregator - React + Node.js
 
 A modern, full-stack news aggregator featuring a proportional treemap layout displaying real news headlines in an interactive card-based interface.
 
