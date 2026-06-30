@@ -62,42 +62,6 @@ The backend fetches from Google News RSS feeds with topic-specific categories:
 
 Articles are cached for 30 minutes and updated automatically.
 
-## Customization
-
-### Add More News Sources
-Edit `server/server.js` and add URLs to the `feeds` array:
-```javascript
-const feeds = [
-  'https://your-feed-url.rss',
-  // ... more feeds
-];
-```
-
-### Adjust Colors
-Edit category colors in `client/src/components/NewsAggregator.js`:
-```javascript
-const categoryColors = {
-  us: '#3D5A72',
-  world: '#5A7A8C',
-  // ...
-};
-```
-
-### Change Cache Duration
-Edit `server/server.js`:
-```javascript
-const CACHE_DURATION = 30 * 60 * 1000; // milliseconds
-```
-
-## Deployment
-
-### Backend (Express)
-Deploy to Heroku, Railway, Render, or AWS Lambda.
-
-### Frontend (React)
-1. Build: `npm run build`
-2. Deploy static files to Netlify, Vercel, or AWS S3
-
 ## Browser Support
 
 - Chrome/Edge (latest)
