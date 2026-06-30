@@ -28,7 +28,7 @@ A modern, full-stack news aggregator featuring a proportional treemap layout dis
 ## API Endpoints
 
 ### GET `/api/news`
-Returns 16 news articles from Google News RSS feeds, with 2 articles per category to ensure diversity.
+Returns news articles from Google News RSS feeds and places them in a treemap based on popularity.
 
 Response format:
 ```json
