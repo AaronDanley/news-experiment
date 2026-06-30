@@ -25,29 +25,6 @@ A modern, full-stack news aggregator featuring a proportional treemap layout dis
 - Custom treemap algorithm
 - CSS3 flexbox/absolute positioning
 
-## Project Structure
-
-```
-news-experiment/
-├── server/
-│   ├── package.json
-│   └── server.js (Express backend on port 5001)
-├── client/
-│   ├── package.json
-│   ├── src/
-│   │   ├── App.js
-│   │   ├── App.css
-│   │   ├── index.js
-│   │   ├── index.css
-│   │   └── components/
-│   │       ├── NewsAggregator.js
-│   │       └── NewsAggregator.css
-│   └── public/
-│       └── index.html (React on port 3000)
-├── package.json (root)
-└── README.md
-```
-
 ## Quick Start
 
 ### Install All Dependencies
