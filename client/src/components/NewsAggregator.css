@@ -40,7 +40,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 16px;
+  padding: 10px;
   margin: 0;
   border-radius: 0;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
@@ -63,16 +63,22 @@
   font-weight: 400;
   overflow: hidden;
   overflow-wrap: break-word;
-  hyphens: auto;
   flex: 1;
+  /* Allow the flex item to shrink below its content size so its measured
+     clientWidth/clientHeight reflect the real available space. Without this,
+     min-height/min-width default to "auto", the box grows to fit the text,
+     and autoSizeText reads an inflated size, picking a font that gets clipped. */
+  min-height: 0;
+  min-width: 0;
 }
 
 .news-source {
   font-size: 11px;
   margin-top: auto;
-  padding-top: 10px;
+  padding-top: 6px;
   opacity: 0.85;
   font-weight: 400;
+  flex-shrink: 0;
 }
 
 .footer {

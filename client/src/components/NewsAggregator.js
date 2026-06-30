@@ -70,42 +70,39 @@ function treemap(data, width, height) {
   return result;
 }
 
-// Auto-size text to fit its own box using dichotomy approach.
-// More efficient than linear search, with fine-tuning for accuracy.
+// Auto-size text to fit its own box. Binary-searches for the largest font
+// size whose content does not overflow the element, and only ever applies a
+// size that has been verified to fit (so it never clips at the size cap).
 function autoSizeText(element) {
-  const availableWidth = element.clientWidth;
-  const availableHeight = element.clientHeight;
-  if (availableWidth === 0 || availableHeight === 0) return;
+  if (element.clientWidth === 0 || element.clientHeight === 0) return;
 
-  const minSize = 8;
+  // Low floor so long headlines in very small tiles can shrink enough to fit
+  // instead of being clipped by the card's overflow:hidden.
+  const minSize = 5;
   const maxSize = 48;
-  
-  // Phase 1: Grow from minSize with large increments until overflow
-  let fontSize = minSize;
-  let increment = 4;
-  
-  while (fontSize < maxSize) {
-    element.style.fontSize = fontSize + 'px';
-    if (element.scrollWidth > availableWidth || element.scrollHeight > availableHeight) {
-      break;
+
+  const fits = (size) => {
+    element.style.fontSize = size + 'px';
+    return element.scrollWidth <= element.clientWidth &&
+           element.scrollHeight <= element.clientHeight;
+  };
+
+  // Largest size that fits, found by binary search. Falls back to minSize when
+  // even the smallest size overflows (truly unavoidable clipping).
+  let lo = minSize;
+  let hi = maxSize;
+  let best = minSize;
+  while (lo <= hi) {
+    const mid = Math.floor((lo + hi) / 2);
+    if (fits(mid)) {
+      best = mid;
+      lo = mid + 1;
+    } else {
+      hi = mid - 1;
     }
-    fontSize += increment;
   }
-  
-  // Phase 2: Backtrack and fine-tune with smaller increments
-  fontSize = Math.max(minSize, fontSize - increment);
-  increment = 1;
-  
-  while (fontSize < maxSize) {
-    element.style.fontSize = fontSize + 'px';
-    if (element.scrollWidth > availableWidth || element.scrollHeight > availableHeight) {
-      fontSize -= increment;
-      break;
-    }
-    fontSize += increment;
-  }
-  
-  element.style.fontSize = Math.max(minSize, fontSize) + 'px';
+
+  element.style.fontSize = best + 'px';
 }
 
 // Fisher-Yates shuffle to distribute colors evenly across grid
@@ -152,11 +149,21 @@ const NewsAggregator = ({ articles, visibleCategories, setVisibleCategories, sho
     setLayout(newLayout);
   }, [visibleArticles]);
 
-  // Auto-size text when layout changes
+  // Auto-size text to fit each card. A ResizeObserver re-fits a headline
+  // whenever its card's box actually changes size (e.g. when toggling
+  // categories re-lays out the treemap). This fires after the browser has
+  // committed the new dimensions, so measurements are never stale — unlike a
+  // plain effect that can read old sizes mid-update.
   useEffect(() => {
-    document.querySelectorAll('.news-headline').forEach(element => {
-      autoSizeText(element);
+    const observer = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        autoSizeText(entry.target);
+      }
     });
+    document.querySelectorAll('.news-headline').forEach(element => {
+      observer.observe(element);
+    });
+    return () => observer.disconnect();
   }, [layout]);
 
   const handleCategoryToggle = (category) => {
