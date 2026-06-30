@@ -105,16 +105,6 @@ function autoSizeText(element) {
   element.style.fontSize = best + 'px';
 }
 
-// Fisher-Yates shuffle to distribute colors evenly across grid
-function shuffle(arr) {
-  const shuffled = [...arr];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled;
-}
-
 const NewsAggregator = ({ articles, visibleCategories, setVisibleCategories, showFooter = true }) => {
   const [layout, setLayout] = useState([]);
   const containerRef = useRef(null);
