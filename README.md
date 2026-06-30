@@ -25,34 +25,6 @@ A modern, full-stack news aggregator featuring a proportional treemap layout dis
 - Custom treemap algorithm
 - CSS3 flexbox/absolute positioning
 
-## Quick Start
-
-### Install All Dependencies
-```bash
-npm run install-all
-```
-
-### Run Development Mode
-```bash
-npm run dev
-```
-
-This will start:
-- **Backend**: http://localhost:5001 (Express server)
-- **Frontend**: http://localhost:3000 (React app)
-
-### Or Run Individually
-
-**Terminal 1 - Backend:**
-```bash
-npm run server
-```
-
-**Terminal 2 - Frontend:**
-```bash
-npm run client
-```
-
 ## API Endpoints
 
 ### GET `/api/news`
