@@ -23,7 +23,9 @@ function App() {
     const fetchNews = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('/api/news');
+        // Use environment variable for API URL, fallback to current host
+        const apiUrl = process.env.REACT_APP_API_URL || '/api/news';
+        const response = await axios.get(apiUrl);
         setArticles(response.data);
         setError(null);
       } catch (err) {
