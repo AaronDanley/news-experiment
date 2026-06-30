@@ -186,7 +186,7 @@ const NewsAggregator = ({ articles, visibleCategories, setVisibleCategories, sho
     <div className="news-aggregator">
       <header className="header">
         <h1>News Aggregator</h1>
-        <span className="article-count">Top Headlines</span>
+        <span className="article-count">Today's Top Headlines</span>
       </header>
 
       <div className="container" ref={containerRef}>
