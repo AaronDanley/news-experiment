@@ -79,7 +79,7 @@ function autoSizeText(element) {
   // Low floor so long headlines in very small tiles can shrink enough to fit
   // instead of being clipped by the card's overflow:hidden.
   const minSize = 5;
-  const maxSize = 48;
+  const maxSize = 84;  // Allows text to grow large in spacious cards
 
   const fits = (size) => {
     element.style.fontSize = size + 'px';
