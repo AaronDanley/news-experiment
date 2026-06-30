@@ -98,11 +98,15 @@ Response format:
 
 ## News Sources
 
-The backend fetches from:
-- CNN Top Stories
-- Reuters Top News
-- New York Times World
-- BBC News
+The backend fetches from Google News RSS feeds with topic-specific categories:
+- U.S. (Nation)
+- World
+- Business
+- Technology
+- Entertainment
+- Sports
+- Science
+- Health
 
 Articles are cached for 30 minutes and updated automatically.
 
