@@ -187,16 +187,24 @@ const NewsAggregator = ({ articles, visibleCategories, setVisibleCategories, sho
           const layoutItem = layout[idx];
           if (!layoutItem) return null;
 
+          // Snap edges (not dimensions) so neighboring tiles share the exact
+          // same rounded coordinate. This prevents 1px gaps where the dark
+          // container background would otherwise show through.
+          const left = Math.round(layoutItem.x);
+          const top = Math.round(layoutItem.y);
+          const right = Math.round(layoutItem.x + layoutItem.w);
+          const bottom = Math.round(layoutItem.y + layoutItem.h);
+
           return (
             <div
               key={article.id}
               className="news-card"
               style={{
                 position: 'absolute',
-                left: Math.round(layoutItem.x) + 'px',
-                top: Math.round(layoutItem.y) + 'px',
-                width: Math.round(layoutItem.w) + 'px',
-                height: Math.round(layoutItem.h) + 'px',
+                left: left + 'px',
+                top: top + 'px',
+                width: (right - left) + 'px',
+                height: (bottom - top) + 'px',
                 backgroundColor: categoryColors[article.category],
                 cursor: 'pointer'
               }}
