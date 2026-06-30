@@ -56,22 +56,25 @@ npm run client
 ## API Endpoints
 
 ### GET `/api/news`
-Returns news articles from RSS feeds across 8 categories.
+Returns 16 news articles from Google News RSS feeds, with 2 articles per category to ensure diversity.
 
 Response format:
 ```json
 [
   {
-    "id": "unique-id",
+    "id": "TECHNOLOGY-0",
     "title": "Article Title",
     "description": "Short summary",
     "link": "https://example.com/article",
     "category": "technology",
     "score": 100,
-    "source": "CNN"
+    "source": "Source Publisher"
   }
 ]
 ```
+
+### GET `/health`
+Health check endpoint. Returns `{ "status": "ok" }`.
 
 ## News Sources
 
